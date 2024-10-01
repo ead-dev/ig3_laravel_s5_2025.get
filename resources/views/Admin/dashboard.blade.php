@@ -14,7 +14,7 @@
 @section('page-header')
     <div>
         <h5 class="page-title mb-0 mt-2">Tableau de bord du coordonnateur</h5>
-        <p class="lead">Hello {{ auth()->user()->name }}, bienvenu sur <span class="text-muted">KeKa</span> votre plateforme de trading de la feve!</p>
+        <p class="lead">Hello {{ auth()->user()->name }}, bienvenu sur <span class="text-muted">KeKa</span> votre plateforme de trading de la fève!</p>
     </div>
 @endsection
 
