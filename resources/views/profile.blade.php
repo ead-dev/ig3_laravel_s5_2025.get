@@ -21,17 +21,17 @@
 @section('content')
     <div style="margin: 1px auto; width:500px" class="card">
         <div class="card-body">
-            <div>
-                <img src="{{ $user->photo }}" alt="">
+            <div class="d-flex justify-content-center mb-3">
+                <img style="width: 180px; border-radius: 50%;" src="{{ $user->photo }}" alt="">
             </div>
             <form enctype="multipart/form-data" action="{{ route('profile.store') }}" method="post">
                 @csrf
-                <div class="">
+                <div class="mb-3">
                         <div class="">
                             <label for="">NOM DE L'UTILISATEUR</label>
                             <input required type="text" name="name" value="{{ $user->name }}" placeholder="Saisir le nom de l'utilisateur" class="form-control">
                         </div>
-                        <div class="">
+                        <div class="mt-2">
                             <label for="">PHOTO DE PROFIL</label>
                             <input required type="file" name="photo"  placeholder="Saisir le nom de l'utilisateur" class="form-control">
                         </div>
@@ -41,7 +41,7 @@
                             <label for="">EMAIL DE CONNEXION</label>
                             <input required type="email" name="email" value="{{ $user->email }}" placeholder="Saisir l'adresse email de connexion de l'utilisateur" class="form-control">
                         </div>
-                        <div class="form-group w-50">
+                        <div class="form-group">
                             <label for="">MOT DE PASSE</label>
                             <input required type="password" name="password" placeholder="Saisir le mot de passe de connexion de l'utilisateur" class="form-control">
                         </div>
