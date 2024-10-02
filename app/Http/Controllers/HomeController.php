@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class HomeController extends ExtendedController
 {
     //
     public function index(){
@@ -46,5 +47,10 @@ class HomeController extends Controller
     public function logout(){
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function getProfile(){
+        $user = User::find(auth()->user()->id);
+        return view('profile',compact('user'));
     }
 }
