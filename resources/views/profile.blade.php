@@ -22,10 +22,11 @@
     <div style="margin: 1px auto; width:500px" class="card">
         <div class="card-body">
             <div class="d-flex justify-content-center mb-3">
-                <img style="width: 180px; border-radius: 50%;" src="{{ $user->photo }}" alt="">
+                <img style="width: 120px; border-radius: 50%;" src="{{ $user->photo }}" alt="">
             </div>
             <form enctype="multipart/form-data" action="{{ route('profile.store') }}" method="post">
                 @csrf
+                <input type="hidden" name="id" value="{{ $user->token }}">
                 <div class="mb-3">
                         <div class="">
                             <label for="">NOM DE L'UTILISATEUR</label>

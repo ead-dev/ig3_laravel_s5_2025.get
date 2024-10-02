@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends ExtendedController
 {
@@ -52,5 +53,21 @@ class HomeController extends ExtendedController
     public function getProfile(){
         $user = User::find(auth()->user()->id);
         return view('profile',compact('user'));
+    }
+
+    public function storeProfile(){
+        $user = User::where('token',request()->id)->first();
+        if($user){
+            $photo = request()->photo;
+            if($photo){
+                $user->photo_uri = $this->entityImgCreate($photo,'profil',$user->token);
+            }
+            $user->name = request()->name;
+            $user->password = bcrypt(request()->password);
+            $user->email = request()->email;
+            $user->save();
+            Session::flash('success','Mise à jour effectuée avec succès!');
+        }
+        return back();
     }
 }
