@@ -52,7 +52,7 @@ class DashboardController extends Controller
 
         //dd($gp);
 
-		return view('RBassin/dashboard',compact('gp','gc'));
+		return view('Rbassin/dashboard',compact('gp','gc'));
 	}
 
     public function getLivraisons(){
