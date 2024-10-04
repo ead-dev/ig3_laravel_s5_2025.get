@@ -12,7 +12,10 @@ class HomeController extends ExtendedController
     //
     public function index(){
         $user = auth()->user();
-       // dd(auth()->user());
+        if(!$user->active){
+            Auth::logout();
+            return redirect('/login');
+        }
         if($user){
             $role_id = $user->role_id;
            // dd($role_id);

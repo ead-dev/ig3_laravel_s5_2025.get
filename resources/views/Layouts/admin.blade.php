@@ -111,8 +111,11 @@
                    <li class="nav-item">
                        <a href="{{ route('admin.rbassins.index') }}" class="nav-link {{ $active==703?'active':'' }}">Points focaux</a>
                    </li>
+                   <li class="nav-item">
+                        <a href="{{ route('admin.users.index') }}" class="nav-link {{ $active==704?'active':'' }}">Comptes utilisateurs</a>
+                    </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.pays.index') }}" class="nav-link {{ $active==704?'active':'' }}">Pays</a>
+                        <a href="{{ route('admin.pays.index') }}" class="nav-link {{ $active==705?'active':'' }}">Pays</a>
                     </li>
                 </ul>
                 <!-- END : Dashboard submenu list -->

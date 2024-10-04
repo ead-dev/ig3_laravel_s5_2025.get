@@ -44,6 +44,8 @@ Route::namespace('App\Http\Controllers\Admin')
         Route::resource('exploitants','ExploitantController');
         Route::resource('banks','BankController');
         Route::resource('users','UserController');
+        Route::get('user/disable/{id}','UserController@disable')->name('user.disable');
+        Route::get('user/enable/{id}','UserController@enable')->name('user.enable');
         Route::resource('pays','PayController');
         Route::resource('clients','ClientController');
         Route::resource('contrats','ContratController');
@@ -107,7 +109,7 @@ Route::namespace('App\Http\Controllers\RBassin')
         Route::get('dashboard','DashboardController@index')->name('dashboard');
         Route::get('dashboard/data','DashboardController@getData')->name('dashboard.data');
         Route::get('dashboard/livraison','DashboardController@getLivraisons')->name('dashboard.livraisons');
-        
+
         Route::resource('cooperatives','CooperativeController');
         Route::resource('saisons','SaisonController');
         Route::resource('clients','ClientController');
@@ -119,7 +121,7 @@ Route::namespace('App\Http\Controllers\RBassin')
         Route::get('protocole/calendar/item/{token}','ProtocoleController@showCalendarItem')->name('protocole.calendar.item.show');
         Route::post('protocole/livraison/init','ProtocoleController@initLivraison')->name('protocole.livraison.init');
 
-    });    
+    });
 
 Route::namespace('App\Http\Controllers\Cooperative')
     ->prefix('cooperative')

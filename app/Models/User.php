@@ -46,6 +46,18 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Region');
     }
 
+    public function cooperative(){
+        return $this->belongsTo('App\Models\Cooperative');
+    }
+
+    public function client(){
+        return $this->belongsTo('App\Models\Client');
+    }
+
+    public function banque(){
+        return $this->belongsTo('App\Models\Banque','bank_id');
+    }
+
     public function producteurs(){
         return $this->belongsToMany('App\Models\Cooperative','operateurs_producteurs','operateur_id','producteur_id');
     }
@@ -57,8 +69,25 @@ class User extends Authenticatable
         }else{
             $path = $host.'/img/avatar.png';
         }
-        return $path;  
-        
+        return $path;
+
+    }
+
+    public function getStatusAttribute(){
+        $data = [
+            'name'=>'actif',
+            'color'=>'success'
+        ];
+
+
+        if(!$this->active){
+            $data = [
+                'name'=>'bloqué',
+                'color'=>'danger'
+            ];
+        }
+
+        return $data;
     }
 
 

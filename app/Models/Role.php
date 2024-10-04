@@ -10,7 +10,6 @@ class Role extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'profil_types';
 
     public function users(){
         return $this->hasMany(User::class);

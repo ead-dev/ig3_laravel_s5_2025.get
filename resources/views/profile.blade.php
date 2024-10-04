@@ -34,7 +34,7 @@
                         </div>
                         <div class="mt-2">
                             <label for="">PHOTO DE PROFIL</label>
-                            <input required type="file" name="photo"  placeholder="Saisir le nom de l'utilisateur" class="form-control">
+                            <input type="file" name="photo"  placeholder="Saisir le nom de l'utilisateur" class="form-control">
                         </div>
                     </div>
                     <div class="">

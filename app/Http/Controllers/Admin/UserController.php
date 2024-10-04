@@ -23,8 +23,7 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        $roles = Role::all();
-        return view('/Admin/Users/index')->with(compact('users','roles'));
+        return view('/Admin/Users/index')->with(compact('users'));
     }
 
     public function getOperateurs()
@@ -83,7 +82,7 @@ class UserController extends Controller
         return view('/Admin/Users/rbassin')->with(compact('rbassin','arrondissements'));
     }
 
-    
+
 
 
     public function saveRbassin(Request $request)
@@ -134,14 +133,14 @@ class UserController extends Controller
     }
 
     public function  enable($token){
-        $user = User::where('token',$token)->first();
+        $user = User::find($token);
         $user->active = 1;
         $user->save();
         return back();
     }
 
     public function  disable($token){
-        $user = User::where('token',$token)->first();
+        $user = User::find($token);
         $user->active = 0;
         $user->save();
         return back();
