@@ -42,7 +42,7 @@
         </div>
         <div class="card w-100">
             <div class="card-header">
-                <a style="float:right" href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="btn btn-sm btn-primary"><i class="pli-file-edit"></i> Ordonner une livraison</a>
+                <a style="float:right" href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="btn btn-sm btn-primary"><i class="pli-file-edit"></i> Nouvelle commande</a>
             </div>
             <div class="card-body d-flex flex-column justify-content-center">
                 @if($item->livraisons->count())
@@ -53,6 +53,9 @@
                                     <p>Date de livraison : <span class="badge bg-primary">{{ $liv->day->format('d/m/Y') }}</span></p>
                                     <p>Quantité : <span class="badge bg-primary">{{ $liv->quantity }} tonne(s)</span></p>
                                     <p>Lieu : <span class="badge bg-primary">{{ $liv->village?$liv->village->name:$liv->arrondissement->name }}</span></p>
+                                    <p>Client: <span class="badge bg-primary">{{ $liv->client?$liv->client->name:'-'  }}</span></p>
+                                    <p>Montant: <span class="badge bg-primary">{{ number_format($liv->total,0,',','.') }}</span></p>
+                                    <p>PU/Kg: <span class="badge bg-primary">{{ number_format($liv->price,0,',','.') }}</span></p>
                                 </div>
                                 <div class="card-footer bg-{{ $liv->status['color']}}">
                                     <p class="text-center text-white">{{ $liv->status['name'] }}</p>
@@ -63,8 +66,8 @@
                 @else
                     <div class="">
                         <div class="text-center">
-                            <p>Aucune livraison faite</p>
-                            <a href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="btn btn-sm btn-danger"><i class="pli-file-edit"></i> Ordonner une préparation de livraison</a>
+                            <p>Aucune commande pour le moment</p>
+                            <a href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="btn btn-sm btn-danger"><i class="pli-file-edit"></i> Ordonner une commande</a>
                         </div>
                     </div>
                 @endif
@@ -76,7 +79,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header justify-content-between">
-                    <h5 class="modal-title">Nouvel ordre de préparation</h5>
+                    <h5 class="modal-title">Nouvel ordre de préparation de commande</h5>
                     <div style="float: right">
                         <button data-bs-dismiss="modal" class="btn btn-sm" >x</button>
                     </div>
