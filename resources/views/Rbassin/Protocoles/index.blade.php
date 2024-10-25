@@ -12,9 +12,6 @@
  </nav>
 @endsection
 
-@section('actions')
-    <a href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="btn btn-primary btn-sm"><i class="demo-pli-add me-2 fs-5"></i> Ajouter</a>
-@endsection
 
 @section('page-header')
     <div>
@@ -26,7 +23,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table class="table table-sm">
+            <table class="table table-sm table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Producteur</th>
@@ -35,7 +32,6 @@
                         <th>Tonnage Exécuté</th>
                         <th>Taux d'exécution</th>
                         <th>Status</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,18 +48,7 @@
                             <td>{{ number_format($item->qtyl,0,',','.') }} tonne(s)</td>
                             <td>{{ $item->percentage }}%</td>
                             <td><span class="badge bg-{{ $item->status['color']}}">{{ $item->status['name'] }}</span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-xs btn-outline-primary dropdown-toggle hstack gap-2" data-bs-toggle="dropdown" aria-expanded="false">
-                                       Actions
-                                       <span class="vr"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                       <li><a class="dropdown-item" href="{{ route('rbassin.protocoles.show',$item->token) }}">Afficher</a></li>
-                                                                          
-                                    </ul>
-                                 </div>
-                            </td>
+                            
                         </tr>
                     @endforeach
                 </tbody>

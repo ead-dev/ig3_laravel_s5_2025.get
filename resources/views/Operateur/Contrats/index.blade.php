@@ -12,9 +12,7 @@
  </nav>
 @endsection
 
-@section('actions')
-    <a href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="btn btn-primary btn-sm"><i class="demo-pli-add me-2 fs-5"></i> Ajouter</a>
-@endsection
+
 
 @section('page-header')
     <div>

@@ -7,6 +7,8 @@ use App\Http\Controllers\ExtendedController;
 use App\Models\Arrondissement;
 use App\Models\Cooperative;
 use App\Models\Region;
+use App\Models\Calendrier;
+use App\Models\Protocole;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -24,6 +26,29 @@ class CooperativeController extends ExtendedController
         $cooperatives = Cooperative::where('departement_id',auth()->user()->departement_id)->get();
         $arrondissements = Arrondissement::where('departement_id',auth()->user()->departement_id)->get();
         return view('/RBassin/Cooperatives/index')->with(compact('cooperatives','arrondissements'));
+    }
+
+
+    public function generateCalendar($token){
+        $cooperative = Cooperative::where('token',$token)->first();
+        $protocole = Protocole::where('cooperative_id',$cooperative->id)->where('saison_id',$this->_saison->id)->first();
+        
+        if($protocole){
+            Calendrier::create([
+                'protocole_id'=>$protocole->id,
+                'saison_id'=>$protocole->saison_id,
+                'region_id'=>$cooperative->region_id,
+                'departement_id'=>$cooperative->departement_id,
+                'arrondissement_id'=>$cooperative->arrondissement_id,
+                'cooperative_id'=>$protocole->cooperative_id,
+                'token'=>sha1(time() . rand(0,9999)),
+            ]);
+            Session::flash('success','Calendrier généré avec succès!');
+        }else{
+            Session::flash('error','Le Calendrier n\'a pas pu etre généré avec succès! Aucun contrat avec ce producteur pour cette saison!');
+        }
+       
+        return back();
     }
 
 
@@ -90,7 +115,9 @@ class CooperativeController extends ExtendedController
 	public function show($token)
 	{
 		$item = Cooperative::where('token',$token)->first();
-		return view('/RBassin/Cooperatives/show')->with(compact('item'));
+        $exploitants = $item->exploitants;
+        $calendrier = Calendrier::where('saison_id',$this->_saison->id)->where('cooperative_id',$item->id)->first();
+		return view('/RBassin/Cooperatives/show')->with(compact('item','calendrier','exploitants'));
 	}
 
 

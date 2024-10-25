@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Cooperative;
 
-use App\Http\Controllers\Controller;
-use App\Models\Secteur;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ExtendedController;
+use App\Models\Calendrier;
+use App\Models\User;
 
-class DashboardController extends Controller
+class DashboardController extends ExtendedController
 {
 
 	
 
     public function index()
 	{
-		return view('Cooperative/dashboard');
+        $user = User::find(auth()->user()->id);
+        $calendrier = Calendrier::where('cooperative_id',auth()->user()->cooperative_id)->where('saison_id',$this->_saison->id)->first();
+		return view('Cooperative/dashboard',compact('user','calendrier'));
 	}
 }

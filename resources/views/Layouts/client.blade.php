@@ -13,8 +13,14 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('client.livraisons.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-truck fs-5 me-2"></i>
-                    <span class="nav-label mininav-content ms-1">Livraisons</span>
+                <a href="{{ route('client.precommandes.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-file fs-5 me-2"></i>
+                    <span class="nav-label mininav-content ms-1">Commandes</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('client.invoices.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-file-copy-2 fs-5 me-2"></i>
+                    <span class="nav-label mininav-content ms-1">Offres commerciales</span>
                 </a>
             </li>
 

@@ -14,9 +14,22 @@ class Contrat extends Model
         return $this->belongsTo('App\Models\Saison');
     }
 
+    public function pps(){
+        return $this->hasMany('App\Models\PaiementPart');
+    }
+
+    public function banque()
+    {
+        return $this->belongsTo('App\Models\Banque');
+    }
+
     public function client()
     {
         return $this->belongsTo('App\Models\Client');
+    }
+
+    public function paiements(){
+        return $this->hasMany('App\Models\Paiement','contrat_id');
     }
 
     public function livraisons(){

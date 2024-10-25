@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Arrondissement;
 use App\Models\Calendrier;
 use App\Models\CalendrierItem;
+use App\Models\CalendrierItemVillage;
 use App\Models\Saison;
 use App\Models\Protocole;
 use App\Models\Client;
@@ -13,6 +14,7 @@ use App\Models\Contrat;
 use App\Models\Cooperative;
 use App\Models\Livraison;
 use App\Models\Region;
+use App\Models\Village;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -74,10 +76,14 @@ class ProtocoleController extends Controller
 
     public function generateCalendar($token){
         $protocole = Protocole::where('token',$token)->first();
+        $cooperative = Cooperative::find($protocole->cooperative_id);
         if($protocole){
             Calendrier::create([
                 'protocole_id'=>$protocole->id,
                 'saison_id'=>$protocole->saison_id,
+                'regin_id'=>$cooperative->region_id,
+                'departement_id'=>$cooperative->departement_id,
+                'arrondissement_id'=>$cooperative->arrondissement_id,
                 'cooperative_id'=>$protocole->cooperative_id,
                 'token'=>sha1(time() . rand(0,9999)),
             ]);
@@ -91,12 +97,11 @@ class ProtocoleController extends Controller
         $cal = Calendrier::find($data['calendrier_id']);
         $item = new CalendrierItem();
         $item->token = sha1(time() . rand(0,9999));
-        $item->quantity = $data['quantity'];
+        $item->lieu = $data['lieu'];
         $item->day = $data['day'];
-        $item->region_id = $data['region_id'];
-        $item->departement_id = $data['departement_id'];
-        $item->arrondissement_id = $data['arrondissement_id'];
-        $item->village_id = $data['village_id']?$data['village_id']:0;
+        $item->region_id = $cal->region_id;
+        $item->departement_id = $cal->departement_id;
+        $item->arrondissement_id = $cal->arrondissement_id;
         $item->calendrier_id = $data['calendrier_id'];
         $item->cooperative_id = $cal->cooperative_id;
         $item->saison_id = $cal->saison_id;
@@ -136,10 +141,22 @@ class ProtocoleController extends Controller
 
     public function showCalendarItem($token){
         $item = CalendrierItem::where('token',$token)->first();
-        $contrats = Contrat::where('saison_id',$item->saison_id)->get();
-        $arrondissements = Arrondissement::where('departement_id',$item->departement_id)->get();
-        return view('/RBassin/Protocoles/calendar_item')->with(compact('item','arrondissements','contrats'));
+        $villages = Village::where('arrondissement_id',$item->arrondissement_id)->get();
+        return view('/RBassin/Protocoles/calendar_item')->with(compact('item','villages'));
 
+    }
+
+    public function setCalendarItemVillage(){
+        
+        CalendrierItemVillage::updateOrcreate([
+            'item_id'=>request()->item_id,
+            'village_id'=>request()->village_id,
+        ],[
+            'item_id'=>request()->item_id,
+            'village_id'=>request()->village_id,
+        ]);
+        Session::flash('success','Ajout effectué avec succès!');
+        return back();
     }
 
     /**

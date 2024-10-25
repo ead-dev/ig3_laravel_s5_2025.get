@@ -28,24 +28,36 @@ $bassin = \Illuminate\Support\Facades\Session::get('bassin');
        </li>
 
        <li class="nav-item">
-           <a href="{{ route('rbassin.livraisons.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-sync fs-4 me-2"></i>
-               <span class="nav-label mininav-content ms-1">Transactions</span>
+           <a href="{{ route('rbassin.previsions.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-mine fs-4 me-2"></i>
+               <span class="nav-label mininav-content ms-1">Previsions de stock</span>
            </a>
        </li>
+
+       <li class="nav-item">
+            <a href="{{ route('rbassin.cooperatives.index') }}" class="nav-link mininav-toggle {{ $active==3?'active':'' }}"><i class="pli-green-house fs-4 me-2"></i>
+                <span class="nav-label mininav-content ms-1">Cooperatives</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('rbassin.members.index') }}" class="nav-link mininav-toggle {{ $active==4?'active':'' }}"><i class="pli-conference fs-4 me-2"></i>
+                <span class="nav-label mininav-content ms-1">Producteurs</span>
+            </a>
+        </li>
 
 
           <!-- Link with submenu -->
           <li class="nav-item has-sub">
-           <a href="#" class="mininav-toggle nav-link {{ ($active>200&&$active<300)?'active':'' }}"><i class="d-block pli-file-edit fs-5 me-2"></i>
+           <a href="#" class="mininav-toggle nav-link {{ ($active>600&&$active<700)?'active':'' }}"><i class="d-block pli-file-edit fs-5 me-2"></i>
                <span class="nav-label ms-1">Contrats</span>
            </a>
            <!-- Settings submenu list -->
            <ul class="mininav-content nav collapse">
                <li class="nav-item">
-                   <a href="{{ route('rbassin.contrats.index') }}" class="nav-link {{ $active==201?'active':'' }}">Acheteurs</a>
+                   <a href="{{ route('rbassin.contrats.index') }}" class="nav-link {{ $active==601?'active':'' }}">Acheteurs</a>
                </li>
                <li class="nav-item">
-                   <a href="{{ route('rbassin.protocoles.index') }}" class="nav-link {{ $active==202?'active':'' }}">Producteurs</a>
+                   <a href="{{ route('rbassin.protocoles.index') }}" class="nav-link {{ $active==602?'active':'' }}">Producteurs</a>
                </li>
 
            </ul>
@@ -53,36 +65,18 @@ $bassin = \Illuminate\Support\Facades\Session::get('bassin');
        </li>
        <!-- END : Link with submenu -->
 
-          <!-- Link with submenu -->
-          <li class="nav-item has-sub">
-            <a href="#" class="mininav-toggle nav-link {{ ($active>300&&$active<400)?'active':'' }}"><i class="d-block demo-pli-add-user-star fs-5 me-2"></i>
-                <span class="nav-label ms-1">Tiers</span>
-            </a>
-            <!-- Settings submenu list -->
-            <ul class="mininav-content nav collapse">
-                <li class="nav-item">
-                    <a href="{{ route('rbassin.cooperatives.index') }}" class="nav-link {{ $active==302?'active':'' }}">Cooperatives</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('rbassin.clients.index') }}" class="nav-link {{ $active==303?'active':'' }}">Acheteurs</a>
-                </li>
-
-            </ul>
-            <!-- END : Dashboard submenu list -->
-        </li>
-        <!-- END : Link with submenu -->
        <!-- Link with submenu -->
        <li class="nav-item has-sub">
-           <a href="#" class="mininav-toggle nav-link {{ ($active>400&&$active<500)?'active':'' }}"><i class="d-block pli-map fs-5 me-2"></i>
+           <a href="#" class="mininav-toggle nav-link {{ ($active>700&&$active<800)?'active':'' }}"><i class="d-block pli-map fs-5 me-2"></i>
                <span class="nav-label ms-1">Territoire</span>
            </a>
            <!-- Settings submenu list -->
            <ul class="mininav-content nav collapse">
                <li class="nav-item">
-                   <a href="{{ route('rbassin.villages.index') }}" class="nav-link {{ $active==401?'active':'' }}">Villages</a>
+                   <a href="{{ route('rbassin.villages.index') }}" class="nav-link {{ $active==701?'active':'' }}">Villages</a>
                </li>
                <li class="nav-item">
-                   <a href="{{ route('rbassin.arrondissements.index') }}" class="nav-link {{ $active==402?'active':'' }}">Arrondissements</a>
+                   <a href="{{ route('rbassin.arrondissements.index') }}" class="nav-link {{ $active==702?'active':'' }}">Arrondissements</a>
                </li>
 
            </ul>
@@ -91,14 +85,11 @@ $bassin = \Illuminate\Support\Facades\Session::get('bassin');
        <!-- END : Link with submenu -->
         <!-- Link with submenu -->
        <li class="nav-item has-sub">
-           <a href="#" class="mininav-toggle nav-link {{ ($active>500&&$active<600)?'active':'' }}"><i class="d-block pli-files fs-5 me-2"></i>
+           <a href="#" class="mininav-toggle nav-link {{ ($active>800&&$active<900)?'active':'' }}"><i class="d-block pli-files fs-5 me-2"></i>
                <span class="nav-label ms-1">Archives</span>
            </a>
            <!-- Settings submenu list -->
            <ul class="mininav-content nav collapse">
-               <li class="nav-item">
-                   <a href="{{ route('rbassin.archives.transactions') }}" class="nav-link {{ $active==501?'active':'' }}">Transactions</a>
-               </li>
 
            </ul>
            <!-- END : Dashboard submenu list -->

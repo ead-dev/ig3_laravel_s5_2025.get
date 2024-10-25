@@ -18,6 +18,14 @@ class Client extends Model
         return $this->hasMany('App\Models\Contrat');
     }
 
+    public function pps(){
+        return $this->hasMany('App\Models\PaiementPart');
+    }
+
+    public function paiements(){
+        return $this->hasMany('App\Models\Paiement','client_id');
+    }
+
     public function livraisons(){
         return $this->hasMany('App\Models\Livraison');
     }

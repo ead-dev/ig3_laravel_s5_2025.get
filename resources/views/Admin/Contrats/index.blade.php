@@ -26,11 +26,12 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table class="table table-sm">
+            <table class="table table-sm table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Acheteur</th>
                         <th>Saison</th>
+                        <th>Banque</th>
                         <th>Tonnage Prévisionnel</th>
                         <th>Tonnage Exécuté</th>
                         <th>Taux d'exécution</th>
@@ -43,10 +44,12 @@
                         <tr>
                             <td><a href="{{ route('admin.clients.show',$item->client_id) }}">{{ $item->client?$item->client->name:'-' }}</a></td>
                             <td><a href="{{ route('admin.saisons.show',$item->saison_id) }}">{{ $item->saison?$item->saison->name:'-' }}</a></td>
+                            <td>{{ $item->banque?$item->banque->name:'-' }}</td>
                             <td>{{ number_format($item->quantity,0,',','.') }} tonne(s)</td>
                             <td>{{ number_format($item->qtyl,0,',','.') }} tonne(s)</td>
                             <td>{{ $item->percentage }}%</td>
                             <td><span class="badge bg-{{ $item->status['color']}}">{{ $item->status['name'] }}</span></td>
+                            <td></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -80,6 +83,15 @@
                                     <select required name="saison_id"  class="form-control">
                                         <option value="">Selectionner une saison ...</option>
                                         @foreach($saisons as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Banque</label>
+                                    <select required name="banque_id"  class="form-control">
+                                        <option value="">Selectionner une banque ...</option>
+                                        @foreach($banques as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>

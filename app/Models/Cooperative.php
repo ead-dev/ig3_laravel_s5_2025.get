@@ -25,12 +25,16 @@ class Cooperative extends Model
         return $this->belongsTo('App\Models\Arrondissement');
     }
 
+    public function paiements(){
+        return $this->hasMany('App\Models\Paiement','cooperative_id');
+    }
+
     public function livraisons(){
         return $this->hasMany('App\Models\Livraison');
     }
 
     public function exploitants(){
-        return $this->hasMany('App\Models\Exploitant');
+        return $this->hasMany('App\Models\Exploitant','cooperative_id');
     }
 
     public function getPhotoAttribute(){

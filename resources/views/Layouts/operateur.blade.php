@@ -23,35 +23,47 @@
                        <span class="nav-label mininav-content ms-1">Tableau de board</span>
                    </a>
                </li>
-   
+
                <li class="nav-item">
-                   <a href="{{ route('operateur.livraisons.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-sync fs-4 me-2"></i>
-                       <span class="nav-label mininav-content ms-1">Transactions</span>
+                   <a href="{{ route('operateur.precommandes.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-files fs-4 me-2"></i>
+                       <span class="nav-label mininav-content ms-1">Commandes Clients</span>
                    </a>
                </li>
-   
-   
+
+               <li class="nav-item">
+                    <a href="{{ route('operateur.invoices.index') }}" class="nav-link mininav-toggle {{ $active==3?'active':'' }}"><i class="pli-file-loading fs-4 me-2"></i>
+                        <span class="nav-label mininav-content ms-1">Offres commerciales</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('operateur.previsions.index') }}" class="nav-link mininav-toggle {{ $active==4?'active':'' }}"><i class="pli-calendar-4 fs-4 me-2"></i>
+                        <span class="nav-label mininav-content ms-1">Stock et Previsions</span>
+                    </a>
+                </li>
+
+
                   <!-- Link with submenu -->
                   <li class="nav-item has-sub">
-                   <a href="#" class="mininav-toggle nav-link {{ ($active>200&&$active<300)?'active':'' }}"><i class="d-block pli-file-edit fs-5 me-2"></i>
+                   <a href="#" class="mininav-toggle nav-link {{ ($active>600&&$active<700)?'active':'' }}"><i class="d-block pli-file-edit fs-5 me-2"></i>
                        <span class="nav-label ms-1">Contrats</span>
                    </a>
                    <!-- Settings submenu list -->
                    <ul class="mininav-content nav collapse">
                        <li class="nav-item">
-                           <a href="{{ route('operateur.contrats.index') }}" class="nav-link {{ $active==201?'active':'' }}">Acheteurs</a>
+                           <a href="{{ route('operateur.contrats.index') }}" class="nav-link {{ $active==601?'active':'' }}">Acheteurs</a>
                        </li>
                        <li class="nav-item">
-                           <a href="{{ route('operateur.protocoles.index') }}" class="nav-link {{ $active==202?'active':'' }}">Producteurs</a>
+                           <a href="{{ route('operateur.protocoles.index') }}" class="nav-link {{ $active==602?'active':'' }}">Producteurs</a>
                        </li>
-   
+
                    </ul>
                    <!-- END : Dashboard submenu list -->
                </li>
                <!-- END : Link with submenu -->
-   
-   
-   
+
+
+
             </ul>
         </div>
         <!-- END : Navigation Category -->

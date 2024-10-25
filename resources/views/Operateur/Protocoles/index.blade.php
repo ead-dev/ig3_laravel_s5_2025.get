@@ -22,7 +22,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table class="table table-sm">
+            <table class="table table-sm table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Producteur</th>
@@ -40,7 +40,7 @@
                             <td>
                                 <div>
                                     <img class="image-25 image-circle" src="{{ $item->cooperative->photo }}" />
-                                    <a style="vertical-align:middle" href="{{ route('operateur.cooperatives.show',$item->cooperative_id) }}">{{ $item->cooperative?$item->cooperative->name:'-' }}</a>
+                                    <a style="vertical-align:middle" href="{{ route('operateur.cooperatives.show',$item->cooperative->token) }}">{{ $item->cooperative?$item->cooperative->name:'-' }}</a>
                                 </div>
                             </td>
                             <td><a href="{{ route('operateur.saisons.show',$item->saison_id) }}">{{ $item->saison?$item->saison->name:'-' }}</a></td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banque;
 use App\Models\Saison;
 use App\Models\Contrat;
 use App\Models\Client;
@@ -22,7 +23,8 @@ class ContratController extends Controller
         $contrats = Contrat::orderBy('created_at','DESC')->get();
         $saisons = Saison::whereNull('closed_at')->get();
         $clients = Client::where('active',1)->get();
-        return view('/Admin/Contrats/index')->with(compact('contrats','clients','saisons'));
+        $banques = Banque::where('active',1)->get();
+        return view('/Admin/Contrats/index')->with(compact('contrats','clients','saisons','banques'));
     }
 
 
@@ -54,6 +56,7 @@ class ContratController extends Controller
                 'client_id'=>$data['client_id'],
                 'saison_id'=>$data['saison_id'],
                 'quantity'=>$data['quantity'],
+                'banque_id'=>$data['banque_id'],
                 'token'=>sha1(time()),
             ]
         );

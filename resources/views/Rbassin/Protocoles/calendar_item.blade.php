@@ -8,66 +8,85 @@
         <li class="breadcrumb-item"><a href="#">Producteurs</a></li>
         <li class="breadcrumb-item"><a href="#">Contrats</a></li>
         <li class="breadcrumb-item"><a href="#">Calendrier de collecte - {{ $item->cooperative->name }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Journée du {{ $item->day->format('d/m/Y') }}</li>
+        <li class="breadcrumb-item active" aria-current="page">Journée du {{ $item->jour->format('d/m/Y') }}</li>
      </ol>
  </nav>
 @endsection
 
 @section('page-header')
     <div>
-        <h5 class="page-title mb-0 mt-2">Journée du {{ $item->day->format('d/m/Y') }}</h5>
-        <p class="lead">Détails de la Journée du {{ $item->day->format('d/m/Y') }}</p>
+        <h5 class="page-title mb-0 mt-2">Journée du {{ $item->jour->format('d/m/Y') }}</h5>
+        <p class="lead">Détails de la Journée du {{ $item->jour->format('d/m/Y') }}</p>
+    </div>
+@endsection
+
+@section('actions')
+    <div class="btn-group">
+        <button type="button" class="btn btn-xs btn-outline-primary dropdown-toggle hstack gap-2" data-bs-toggle="dropdown" aria-expanded="false">
+        Actions
+        <span class="vr"></span>
+        </button>
+        <ul class="dropdown-menu">
+            @if($item->prevision)
+                <a href="#" data-bs-target="#editModal" data-bs-toggle="modal" class="dropdown-item"><i class="pli-file-edit"></i>Modifier les previsions</a>
+            @else
+                <a href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="dropdown-item"><i class="pli-file-edit"></i>Editer les previsions</a>
+            @endif
+            <a href="#" data-bs-target="#addVillageModal" data-bs-toggle="modal" class="dropdown-item"><i class="pli-map-marker"></i>Associer un village</a>                            
+        </ul>
     </div>
 @endsection
 
 @section('content')
-    <div class="d-flex gap-1">
+    <div class="d-flex justify-content-center gap-1">
         <div class="card" style="width:45%">
-            <div class="card-body">
+            <div class="">
                 <div class="d-flex gap-2">
-                    <div class="d-flex justify-content-center flex-column">
-                        <img style="vertical-align: middle" class="image-circle image-thumnail image-75"  src="{{ $item->cooperative->photo }}" alt="">
+                    <div class="w-50">
+                        <img style="width:100%; height:100%; background-size: cover;" class=""  src="{{ $item->cooperative->photo }}" alt="">
                     </div>
-                    <div id="d-text" class="d-flex justify-content-center flex-column">
-                        <p>COOPERATIVE : {{ $item->cooperative->name }}</p>
+                    <div id="d-text" class="d-flex justify-content-center flex-column p-3">
+                        <p class="fs-4 text-dark border-bottom border-2 border-primary">COOPERATIVE : {{ $item->cooperative->name }}</p>
                         <p>SAISON : {{ $item->saison->name }}</p>
-                        <p>Tonnage attendu : <span class="badge bg-dark">{{ $item->quantity }} tonne(s)</span></p>
-                        <p>Tonnage livré : <span class="badge bg-dark">{{ $item->qtyl }} tonne(s)</span></p>
-                        <p>Taux d'exécution : <span class="badge bg-dark">{{ $item->percentage }} %</span></p>
-                        <p>Village : <span class="badge bg-dark">{{ $item->village?$item->village->name:'-' }} </span></p>
+                        <p>Lieu : <span class="badge bg-dark">{{ $item->lieu }} </span></p>
                         <p>Arrondissement : <span class="badge bg-dark">{{ $item->arrondissement?$item->arrondissement->name:'-' }} </span></p>
-                        <div class="mt-1">
-                            <a href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="btn btn-sm btn-primary"><i class="pli-file-edit"></i> Ordonner une livraison</a>
-                        </div>
+
+                        @if($item->prevision)
+                            <fieldset>
+                                <legend>Stock prévisonnel</legend>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>GRADE 1</th>
+                                            <th>GRADE 2</th>
+                                            <th>HS</th>
+                                            <th>TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $item->prevision->grd1_qty }}</td>
+                                            <td>{{ $item->prevision->grd2_qty }}</td>
+                                            <td>{{ $item->prevision->hs_qty }}</td>
+                                            <td>{{ $item->prevision->quantity }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                            <p>Stock engagé : <span class="badge bg-dark">{{ $item->qtyl }} tonne(s)</span></p>
+                            <p>Stock restant : <span class="badge bg-dark">{{ $item->qtyl }} tonne(s)</span></p>
+                            
+                        @endif
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card w-100">
-            <div class="card-body d-flex flex-column justify-content-center">
-                @if($item->livraisons->count())
-                    <div class="d-flex gap-2 justify-content-center">
-                        @foreach($item->livraisons as $liv)
-                            <div  class="card bg-light w-25">
-                                <div class="card-body">
-                                    <p>Date de livraison : <span class="badge bg-primary">{{ $liv->day->format('d/m/Y') }}</span></p>
-                                    <p>Quantité : <span class="badge bg-primary">{{ $liv->quantity }} tonne(s)</span></p>
-                                    <p>Lieu : <span class="badge bg-primary">{{ $liv->village?$liv->village->name:$liv->arrondissement->name }}</span></p>
-                                </div>
-                                <div class="card-footer bg-{{ $liv->status['color']}}">
-                                    <p class="text-center text-white">{{ $liv->status['name'] }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="">
-                        <div class="text-center">
-                            <p>Aucune livraison faite</p>
-                            <a href="#" data-bs-target="#addModal" data-bs-toggle="modal" class="btn btn-sm btn-danger"><i class="pli-file-edit"></i> Ordonner une préparation de livraison</a>
-                        </div>
-                    </div>
-                @endif
+            <div class="card-footer">
+                <fieldset>
+                    <legend>Liste des villages concernés</legend>
+                    @foreach($item->villages as $vil)
+                        <span class="badge bg-primary">{{ $vil->name }}</span>
+                    @endforeach
+                </fieldset>
             </div>
         </div>
     </div>
@@ -76,61 +95,118 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header justify-content-between">
-                    <h5 class="modal-title">Nouvel ordre de préparation</h5>
+                    <h5 class="modal-title">Saisie du stock prévisionnel</h5>
                     <div style="float: right">
                         <button data-bs-dismiss="modal" class="btn btn-sm" >x</button>
                     </div>
                 </div>
                 <div class="modal-body">
-                    <form enctype="multipart/form-data" action="{{ route('rbassin.protocole.livraison.init') }}" method="post">
+                    <form enctype="multipart/form-data" action="{{ route('rbassin.previsions.store') }}" method="post">
                         @csrf
                         <input type="hidden" name="item_id" value="{{ $item->id }}">
                         <div>
                             <div class="form-group">
-                                <label for="">CLIENT</label>
-                                <select required name="contrat_id" id="contrat_id" class="form-control">
-                                    <option value="0">Selectionner un client</option>
-                                    @foreach($contrats as $option)
-                                        <option value="{{ $option->id }}">
-                                            <div>
-                                                <img src="{{ $option->client->photo }}" alt="">
-                                                <span>{{ $option->client->name }}</span>
-                                            </div>
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="">JOUR DU MARCHE</label>
+                                <input type="date" readonly required value="{{ $item->day }}" placeholder="Jour du marche" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="">DATE DE LA COLLECTE</label>
-                                <input type="date" required name="day" value="{{ $item->day }}" placeholder="Jour du marche" class="form-control">
+                                <label for="">LIEU DU MARCHE</label>
+                                <input type="text" readonly required value="{{ $item->lieu }}" placeholder="lieu du marche" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="">Tonnage attendu</label>
-                                <input type="number" required name="quantity" placeholder="Saisir la quantite de tonnes attendue" value="{{ $item->quantity }}" class="form-control">
+                                <label for="">Tonnage grade 1</label>
+                                <input type="number" required name="grd1_qty" placeholder="Saisir le tonnage du grade 1" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="">Prix du Kilo</label>
-                                <input type="number" required name="price" placeholder="Saisir le prix du kilogramme de cette commande" class="form-control">
+                                <label for="">Tonnage grade 2</label>
+                                <input type="number" required name="grd2_qty" placeholder="Saisir le tonnage du grade 2" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="">ARRONDISSEMENT</label>
-                                <select required name="arrondissement_id" id="arrondissement_id" class="form-control">
-                                    <option value="0">Selectionner un arrondissement</option>
-                                    @foreach($arrondissements as $option)
-                                        <option value="{{ $option->id }}">{{ $option->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Village</label>
-                                <select name="village_id" id="village_id" class="form-control">
-                                    <option value="0">Selectionner un village ..</option>
-
-                                </select>
+                                <label for="">Tonnage HS</label>
+                                <input type="number" required name="hs_qty" placeholder="Saisir le tonnage du HS" class="form-control">
                             </div>
                         </div>
-                        <div class="mt-5">
-                            <button type="submit" class="btn-success btn"><i class="pli-envelope fs-5 me-2"></i> Envoyer</button>
+                        <div class="mt-2">
+                            <button type="submit" class="btn-success btn"><i class="pli-save fs-5 me-2"></i> ENREGISTRER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if($item->prevision)
+    <div class="modal fade" id="editModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header justify-content-between">
+                    <h5 class="modal-title">Modification du stock previsionnel</h5>
+                    <div style="float: right">
+                        <button data-bs-dismiss="modal" class="btn btn-sm" >x</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" action="{{ route('rbassin.prevision.save') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $item->prevision->id }}">
+                        <div>
+                            <div class="form-group">
+                                <label for="">JOUR DU MARCHE</label>
+                                <input type="date" readonly required value="{{ $item->day }}" placeholder="Jour du marche" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">LIEU DU MARCHE</label>
+                                <input type="text" readonly required value="{{ $item->lieu }}" placeholder="lieu du marche" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tonnage grade 1</label>
+                                <input type="number" required name="grd1_qty" value="{{ $item->prevision->grd1_qty }}" placeholder="Saisir le tonnage du grade 1" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tonnage grade 2</label>
+                                <input type="number" required name="grd2_qty" value="{{ $item->prevision->grd2_qty }}" placeholder="Saisir le tonnage du grade 2" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tonnage HS</label>
+                                <input type="number" required name="hs_qty" value="{{ $item->prevision->hs_qty }}" placeholder="Saisir le tonnage du HS" class="form-control">
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn-success btn"><i class="pli-save fs-5 me-2"></i> ENREGISTRER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <div class="modal fade" id="addVillageModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header justify-content-between">
+                    <h5 class="modal-title">Associer un village au calendrier</h5>
+                    <div style="float: right">
+                        <button data-bs-dismiss="modal" class="btn btn-sm" >x</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" action="{{ route('rbassin.calendar.village') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                        <div class="d-flex gap-1">
+                            <div class="form-group flex-fill">
+                                <label for="">Village</label>
+                                <select name="village_id" required id="" class="form-control">
+                                    <option value="">Selectionner un village de l'arrondissement ...</option>
+                                    @foreach($villages as $village)
+                                        <option value="{{ $village->id }}">{{ $village->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn-success btn"><i class="pli-save fs-5 me-2"></i> ENREGISTRER</button>
+                            </div>
                         </div>
                     </form>
                 </div>

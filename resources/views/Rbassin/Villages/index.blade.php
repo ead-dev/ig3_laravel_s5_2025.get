@@ -67,7 +67,7 @@
                             <div class="d-flex gap-2 flex-grow mb-3">
                                 <div class=" w-50">
                                     <label for="">NOM</label>
-                                    <input type="text" name="name" placeholder="Saisir le nom du departement" class="form-control">
+                                    <input type="text" name="name" placeholder="Saisir le nom du village" class="form-control">
                                 </div>
                                 
                                 <div>

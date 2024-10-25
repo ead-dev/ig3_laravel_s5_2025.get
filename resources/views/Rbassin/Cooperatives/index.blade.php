@@ -16,8 +16,8 @@
 
 @section('page-header')
     <div>
-        <h5 class="page-title mb-0 mt-2">Coopératives</h5>
-        <p class="lead">Liste de toutes les coopératives du bassin</p>
+        <h5 class="page-title mb-0 mt-2">Coopératives et Organisations de producteurs</h5>
+        <p class="lead">Liste de toutes les organisations de producteurs de mon bassin</p>
     </div>
 @endsection
 

@@ -15,6 +15,10 @@ class Saison extends Model
         return $this->hasMany('App\Models\Contrat');
     }
 
+    public function pps(){
+        return $this->hasMany('App\Models\PaiementPart');
+    }
+
     public function protocoles(){
         return $this->hasMany('App\Models\Protocole');
     }

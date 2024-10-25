@@ -27,14 +27,19 @@ class CalendrierItem extends Model
         return $this->belongsTo('App\Models\Saison');
     }
 
+    public function villages()
+    {
+        return $this->belongsToMany('App\Models\Village','calendrier_items_villages','item_id');
+    }
+
     public function livraisons()
     {
         return $this->hasMany('App\Models\Livraison','item_id');
     }
 
-    public function village()
+    public function prevision()
     {
-        return $this->belongsTo('App\Models\Village');
+        return $this->hasOne('App\Models\Prevision','item_id');
     }
 
     public function arrondissement()
@@ -52,28 +57,8 @@ class CalendrierItem extends Model
         return $this->belongsTo('App\Models\Region');
     }
 
-    public function getQtylAttribute(){
-        $livs = $this->livraisons->where('delivered_at','!=',null);
-        if($livs->count()){
-            return $livs->reduce(function($c,$i){
-                return $c + $i->quantity;
-            });
-        }else{
-            return 0;
-        }
-        
-    }
-
-    public function getPercentageAttribute(){
-        
-        return round($this->qtyl/$this->quantity * 100,2);
-    }
-
-    protected function day(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => \Carbon\Carbon::parse($value),
-        );
+    public function getJourAttribute(){
+        return \Carbon\Carbon::parse($this->day);
     }
 
 }

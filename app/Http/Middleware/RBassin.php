@@ -27,29 +27,26 @@ class RBassin
         $path = request()->getPathInfo();
         $parts = explode('/',$path);
         $active = 1;
-        if(in_array('protocole',$parts) || in_array('protocoles',$parts)){
-            $active = 202;
+        if(in_array('previsions',$parts)){
+            $active = 2;
         }
-        if(in_array('contrat',$parts) || in_array('contrats',$parts)){
-            $active = 201;
+        if(in_array('cooperatives',$parts)){
+            $active = 3;
         }
-        if(in_array('client',$parts) || in_array('clients',$parts)){
-            $active = 302;
+        if(in_array('members',$parts)){
+            $active = 4;
         }
-        if(in_array('cooperative',$parts) || in_array('cooperatives',$parts)){
-            $active = 303;
+        if(in_array('contrats',$parts)){
+            $active = 601;
+        }
+        if(in_array('protocoles',$parts)){
+            $active = 602;
         }
         if(in_array('villages',$parts)){
-            $active = 401;
+            $active = 701;
         }
         if(in_array('arrondissements',$parts)){
-            $active = 402;
-        }
-        if(in_array('a_transactions',$parts)){
-            $active = 501;
-        }
-        if(in_array('livraisons',$parts)){
-            $active = 2;
+            $active = 702;
         }
         Session::put('active',$active);
         return $next($request);

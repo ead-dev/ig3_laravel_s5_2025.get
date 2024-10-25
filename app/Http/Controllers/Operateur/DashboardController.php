@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Contrat;
 use App\Models\Cooperative;
 use App\Models\Livraison;
+use App\Models\OrderItem;
 use App\Models\Protocole;
 use App\Models\Saison;
 use App\Models\Secteur;
@@ -57,14 +58,15 @@ class DashboardController extends Controller
         $cooperative_id = request()->cooperative_id;
         $saisons = Saison::where('active',1)->get();
         $sids = $saisons->pluck('id');
-        $livraisons = Livraison::whereIn('saison_id',$sids)->where('client_id',$client_id)->where('cooperative_id',$cooperative_id)->whereNotNull('delivered_At')->get();
+       // $livraisons = OrderItem::whereIn('saison_id',$sids)->where('client_id',$client_id)->where('cooperative_id',$cooperative_id)->whereNotNull('delivered_At')->get();
+       $livraisons = OrderItem::whereIn('saison_id',$sids)->where('client_id',$client_id)->where('cooperative_id',$cooperative_id)->get();
         $qty = $livraisons->reduce(function($carry,$item){
             return $carry + $item->quantity;
         });
         $qty = $qty?$qty:0;
 
         $price = $livraisons->reduce(function($carry,$item){
-            return $carry + $item->quantity * $item->price * 1000;
+            return $carry + $item->total;
         });
         $price = $price?$price:0;
         $qty = $qty?$qty:0;
@@ -81,7 +83,7 @@ class DashboardController extends Controller
         $sids = $saisons->pluck('id');
         $contrats = Contrat::whereIn('saison_id',$sids)->get();
         $protocoles = Protocole::whereIn('saison_id',$sids)->get();
-        $livraisons = Livraison::whereIn('saison_id',$sids)->get();
+        $livraisons = OrderItem::whereIn('saison_id',$sids)->get();
         //$liv_nv = $livraisons->whereNull('accepted_at');
         //$liv_v = $livraisons->whereNotNull('accepted_at')->whereNull('delivered_at');
 

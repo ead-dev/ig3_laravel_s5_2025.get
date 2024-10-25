@@ -11,15 +11,26 @@
                     <span class="nav-label mininav-content ms-1">Tableau de board</span>
                 </a>
             </li>
-
             <li class="nav-item">
-                <a href="{{ route('cooperative.livraisons.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-truck fs-5 me-2"></i>
-                    <span class="nav-label mininav-content ms-1">Livraisons</span>
+                <a href="{{ route('cooperative.paiements.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-coins fs-5 me-2"></i>
+                    <span class="nav-label mininav-content ms-1">Reglements Banque</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('cooperative.protocoles.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="d-block pli-file-edit fs-5 me-2"></i>
+                <a href="{{ route('cooperative.invoices.index') }}" class="nav-link mininav-toggle {{ $active==3?'active':'' }}"><i class="pli-handshake fs-5 me-2"></i>
+                    <span class="nav-label mininav-content ms-1">Ventes</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('cooperative.members.index') }}" class="nav-link mininav-toggle {{ $active==4?'active':'' }}"><i class="pli-conference fs-5 me-2"></i>
+                    <span class="nav-label mininav-content ms-1">Adherents</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('cooperative.protocoles.index') }}" class="nav-link mininav-toggle {{ $active==5?'active':'' }}"><i class="d-block pli-file-edit fs-5 me-2"></i>
                     <span class="nav-label mininav-content ms-1">Contrats</span>
                 </a>
             </li>

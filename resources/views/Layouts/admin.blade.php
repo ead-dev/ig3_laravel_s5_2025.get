@@ -23,10 +23,28 @@
            </li>
 
            <li class="nav-item">
-               <a href="{{ route('admin.livraisons.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-sync fs-5 me-2"></i>
-                   <span class="nav-label mininav-content ms-1">Transactions</span>
+               <a href="{{ route('admin.invoices.index') }}" class="nav-link mininav-toggle {{ $active==2?'active':'' }}"><i class="pli-sync fs-5 me-2"></i>
+                   <span class="nav-label mininav-content ms-1">Offres commerciales</span>
                </a>
            </li>
+
+           <!-- Link with submenu -->
+           <li class="nav-item has-sub">
+            <a href="#" class="mininav-toggle nav-link {{ ($active>300&&$active<400)?'active':'' }}"><i class="d-block pli-file-edit fs-5 me-2"></i>
+                <span class="nav-label ms-1">Transactions</span>
+            </a>
+            <!-- Settings submenu list -->
+            <ul class="mininav-content nav collapse">
+                <li class="nav-item">
+                    <a href="{{ route('admin.precommandes.index') }}" class="nav-link {{ $active==301?'active':'' }}">Commandes</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.previsions.index') }}" class="nav-link {{ $active==302?'active':'' }}">Previsions de stocks</a>
+                </li>
+            </ul>
+            <!-- END : Dashboard submenu list -->
+        </li>
+        <!-- END : Link with submenu -->
 
 
               <!-- Link with submenu -->
