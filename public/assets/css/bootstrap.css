@@ -15976,7 +15976,7 @@ textarea.form-control-lg {
 /* ---------------------------------------------- */
 /* night color scheme */
 [data-scheme=night] {
-  --bs-primary: #4e3420;
+  --bs-primary: #357a38;
   --bs-primary-rgb: 36, 40, 47;
   --bs-primary-color: #fff;
   --bs-primary-color-rgb: 255, 255, 255;
@@ -15984,9 +15984,9 @@ textarea.form-control-lg {
   --bs-primary-bg-subtle: #d3d4d5;
   --bs-primary-border-subtle: #a7a9ac;
   --bs-primary-text-emphasis: #0e1013;
-  --bs-link-color: #4e3420;
+  --bs-link-color: #357a38;
   --bs-link-color-rgb: 36, 40, 47;
-  --bs-link-hover-color: #4e3420;
+  --bs-link-hover-color: #357a38;
   --bs-link-hover-color-rgb: 91, 94, 99;
 }
 [data-scheme=night] .form-range {
@@ -16012,7 +16012,7 @@ textarea.form-control-lg {
 [data-bs-theme=dark][data-scheme=night] {
   --bs-primary-text-emphasis: #a5a7aa;
   --bs-primary-bg-subtle: #171a1f;
-  --bs-primary-border-subtle: shade-color0(#4e3420, 20%);
+  --bs-primary-border-subtle: shade-color0(#357a38, 20%);
 }
 [data-bs-theme=dark][data-scheme=night] .text-primary {
   color: rgba(91, 94, 99, var(--bs-text-opacity, 1)) !important;

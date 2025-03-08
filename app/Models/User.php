@@ -2,93 +2,72 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-//use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
-use Spatie\Permission\Traits\HasRoles;
-
+use Orchid\Attachment\Attachable;
+use Orchid\Filters\Filterable;
+use Orchid\Filters\Types\Like;
+use Orchid\Filters\Types\Where;
+use Orchid\Filters\Types\WhereDateStartEnd;
+use Orchid\Platform\Models\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
 
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
 
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
     protected $hidden = [
         'password',
         'remember_token',
+        'permissions',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'permissions'          => 'array',
+        'email_verified_at'    => 'datetime',
+    ];
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    /**
+     * The attributes for which you can use filters in url.
+     *
+     * @var array
+     */
+    protected $allowedFilters = [
+           'id'         => Where::class,
+           'name'       => Like::class,
+           'email'      => Like::class,
+           'updated_at' => WhereDateStartEnd::class,
+           'created_at' => WhereDateStartEnd::class,
+    ];
 
-    public function role(){
-        return $this->belongsTo('App\Models\Role','role_id');
-    }
-
-    public function departement(){
-        return $this->belongsTo('App\Models\Departement');
-    }
-
-    public function region(){
-        return $this->belongsTo('App\Models\Region');
-    }
-
-    public function cooperative(){
-        return $this->belongsTo('App\Models\Cooperative');
-    }
-
-    public function client(){
-        return $this->belongsTo('App\Models\Client');
-    }
-
-    public function banque(){
-        return $this->belongsTo('App\Models\Banque','bank_id');
-    }
-
-    public function producteurs(){
-        return $this->belongsToMany('App\Models\Cooperative','operateurs_producteurs','operateur_id','producteur_id');
-    }
-
-    public function getPhotoAttribute(){
-        $host = request()->getSchemeAndHttpHost();
-        if($this->photo_uri){
-            $path = $host.'/img/'.$this->photo_uri;
-        }else{
-            $path = $host.'/img/avatar.png';
-        }
-        return $path;
-
-    }
-
-    public function getStatusAttribute(){
-        $data = [
-            'name'=>'actif',
-            'color'=>'success'
-        ];
-
-
-        if(!$this->active){
-            $data = [
-                'name'=>'bloqué',
-                'color'=>'danger'
-            ];
-        }
-
-        return $data;
-    }
-
-
+    /**
+     * The attributes for which can use sort in url.
+     *
+     * @var array
+     */
+    protected $allowedSorts = [
+        'id',
+        'name',
+        'email',
+        'updated_at',
+        'created_at',
+    ];
 }

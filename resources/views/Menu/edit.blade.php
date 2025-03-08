@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <title>Menu | FOODIES</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>MODIFICATION DE : {{ $item->name }}</h1>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/menu/{{ $item->id }}/update" method="post">
+                            @csrf
+                            <div>
+                                <label for="">NOM</label>
+                                <input required class="form-control" name="name" value="{{ $item->name }}" placeholder="Saisir le nom du repas" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <label for="">PRIX</label>
+                                <input required class="form-control" name="pu" placeholder="Saisir le prix de vente" value="{{ $item->pu }}" type="number">
+                            </div>
+                            <div class="mt-3">
+                                <label for="">DESCRIPTION</label>
+                                <textarea name="description" class="form-control" id="" cols="30" placeholder="Donner une petite description de ce menu" rows="3">{{ $item->description }}</textarea>
+                            </div>
+                            <div class="mt-3">
+                                <label for="">CATEGORIE</label>
+                                <select required name="category_id" class="form-control" id="">
+                                    <option value="">Choisir une categorie ...</option>
+                                    @foreach ($cats as $cat)
+                                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mt-5">
+                                <button class="btn btn-success">ENREGISTRER</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
