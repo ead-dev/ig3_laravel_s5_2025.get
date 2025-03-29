@@ -28,29 +28,25 @@
         <thead>
             <tr>
                 <th>DATE</th>
+                <th>&numero;</th>
                 <th>CLIENT</th>
                 <th>QUANTITE</th>
                 <th>TOTAL</th>
-                <th>STATUT</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
            @foreach ($items as $item)
                <tr>
-                    <td>{{ $item->created_at }}</td>
-                    <td>{{ $item->pu }}</td>
-                    <td>{{ $item->category->name }}</td>
                     <td>{{ $item->created_at?$item->created_at->format('d/m/Y H:i'):'-' }}</td>
-                    <td>{{ $item->active?'actif':'disactive' }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->client?->name }}</td>
+                    <td>{{ $item->quantity }}</td>
+                    <td>{{ number_format($item->total,0,',','.') }}</td>
                     <td>
-                        <a class="btn btn-info btn-xs" href="/menu/{{ $item->id }}">Afficher</a>
-                        <a class="btn btn-warning btn-xs" href="/menu/edit/{{ $item->id }}">Modifier</a>
-                        @if($item->active)
-                            <a class="btn btn-primary btn-xs" href="/menu/disable/{{ $item->id }}">Desactiver</a>
-                        @else
-                            <a class="btn btn-success btn-xs" href="/menu/enable/{{ $item->id }}">Activer</a>
-                        @endif
+                        <a class="btn btn-info btn-xs" href="/commandes/{{ $item->id }}">Afficher</a>
+                        <a class="btn btn-warning btn-xs" href="/commandes/edit/{{ $item->id }}">Modifier</a>
+                        
                     </td>
                </tr>
            @endforeach

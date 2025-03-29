@@ -6,11 +6,11 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/menu" method="post">
+                        <form action="/commandes" method="post">
                             @csrf
                             <div class="mt-3">
                                 <label for="">ELEMENT DE MENU</label>
-                                <select required name="category_id" class="form-control" id="">
+                                <select required name="menu_id" class="form-control" id="">
                                     <option value="">Choisir un repas au menu ...</option>
                                     @foreach ($repas as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
