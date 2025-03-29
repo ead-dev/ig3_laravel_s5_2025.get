@@ -4,6 +4,7 @@ use App\Orchid\Screens\TaskScreen;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Http\Controllers\MenuController;
 |
 */
 
-Route::get('/',[TestController::class,'index']);
+Route::get('/',[HomeController::class,'index']);
 
 Route::get('/repas',[TestController::class,'getRepas']);
 
@@ -32,6 +33,8 @@ Route::post('/menu/{id}/update',[MenuController::class,'update']);
 Route::get('/menu/edit/{id}',[MenuController::class,'edit']);
 
 Route::post('/menu',[MenuController::class,'store']);
+
+Route::resource('commandes','App\Http\Controllers\CommandeController');
 
 
 

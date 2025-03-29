@@ -14,10 +14,26 @@ class MenuController extends Controller
     public function index()
     {
         //
-
+       // dd(request()->category_id);
+       // $items = Repas::orderBy('name','ASC')->where('active',1)->get();
         $items = Repas::orderBy('name','ASC')->get();
+        $cat_id = request()->category_id;
+        $statut = request()->active;
+        
+        if($cat_id){
+            $items = $items->where('category_id',$cat_id);
+        }
+        if($statut==0 && $statut!=null){
+            
+            $items = $items->where('active',0);
+        }
+        if($statut==1){
+            $items = $items->where('active',1);
+        }
+
+        $categories = Category::all();
         //dd($items);
-        return view('Menu.index',compact('items'));
+        return view('Menu.index',compact('items','categories'));
     }
 
     /**

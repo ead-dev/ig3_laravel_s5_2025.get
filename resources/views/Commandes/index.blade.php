@@ -1,20 +1,12 @@
 @extends('../Layouts/main')
-@section('title','Liste des repas')
+@section('title','Liste des commandes')
 @section('principal')
 <div class="container mt-4">
-        <h1>MENU AU SEIN DU RESTO FOODIES</h1>
-        <a class="btn btn-sm btn-primary" href="/menu/create">Ajouter</a>
+        <h1>LISTE DES COMMANDES</h1>
+        <a class="btn btn-sm btn-primary" href="/commandes/create">Ajouter</a>
         <div>
           <form class="mt-4">
               <div class="row">
-                  <div class="col-md-3">
-                      <select name="category_id" class="form-control col-md-5">
-                          <option value=0>Toutes les categories</option>
-                          @foreach($categories as $cat)
-                            <option value="{{$cat->id}}">{{ $cat->name }}</option>
-                          @endforeach
-                      </select>
-                  </div>
                   <div class="col-md-3">
                       <select name="active" class="form-control col-md-5">
                           <option value=-1>Tous les statuts</option>
@@ -35,10 +27,10 @@
     <table class="table table-sm table-striped table-bordered mt-3">
         <thead>
             <tr>
-                <th>REPAS</th>
-                <th>PRIX UNITAIRE</th>
-                <th>CATEGORIE</th>
-                <th>DATE D'AJOUT</th>
+                <th>DATE</th>
+                <th>CLIENT</th>
+                <th>QUANTITE</th>
+                <th>TOTAL</th>
                 <th>STATUT</th>
                 <th>Actions</th>
             </tr>
@@ -46,7 +38,7 @@
         <tbody>
            @foreach ($items as $item)
                <tr>
-                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->created_at }}</td>
                     <td>{{ $item->pu }}</td>
                     <td>{{ $item->category->name }}</td>
                     <td>{{ $item->created_at?$item->created_at->format('d/m/Y H:i'):'-' }}</td>

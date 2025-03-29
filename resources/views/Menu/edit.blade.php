@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
-    <title>Menu | FOODIES</title>
-</head>
-<body>
-    <div class="container mt-4">
+@extends('../Layouts/main')
+@section('principal')
+<div class="container mt-4">
         <h1>MODIFICATION DE : {{ $item->name }}</h1>
 
         <div class="row">
@@ -47,5 +39,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection
